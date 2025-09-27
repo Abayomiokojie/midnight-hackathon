@@ -1,0 +1,24 @@
+# Node modules
+node_modules
+
+# Build outputs
+dist
+.vite
+
+# Sensitive files
+.env
+wallet-seed.txt
+
+# Midnight ZK keys (private prover keys)
+contracts/*/keys/private-*
+
+# All keys and ZKIR (full exclusion for safety)
+contracts/*/keys/
+contracts/*/zkir/
+
+# Compiler (optional, if bloating repo)
+contracts/*/compiler/
+
+# Logs/temp
+*.log
+temp/
