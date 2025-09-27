@@ -17,7 +17,7 @@
 - **Impact:** Central hub that proves patients are stakeholders.
 
 ### Task & Rewards
-
+jji
 - Submit survey / wearable data → earn tokens.
 - **Impact:** Reinforces fairness and incentive model.
 
