@@ -2,7 +2,7 @@
 
 The midnight foundation privacy blockchain project demonstrating zero-knowledge proofs on testnet.
 
-## Patient Dashboard
+## Patient Dashboard (skeleton)
 
 A minimal static patient dashboard prototype is available at `src/dashboard`.
 
@@ -237,22 +237,6 @@ Next time you run the DApp:
 2. Enter your saved seed
 3. Choose option `2` to join existing contract
 4. Enter your saved contract address
-
-## Integrating Midnight JS & Compact Contracts
-
-This project includes a small client scaffold at `src/dashboard/midnight-client.js` to make it clear where real Midnight JS calls should be placed. The current functions are mocked — replace them with the Midnight SDK and compact-generated TypeScript bindings.
-
-High level steps:
-
-1. Install the Compact compiler and compile the contract in `contracts/` per the instructions above. This generates TypeScript bindings under `contract/`.
-2. Install Midnight JS (follow Midnight docs). Typically you will import the client in a browser or Node environment and use it to sign and submit transactions.
-3. Replace the functions in `src/dashboard/midnight-client.js` with real calls:
-   - `connectWallet()` — integrate Lace/Metamask or a headless wallet.
-   - `getPatientProfile(address)` — query on-chain state or your backend proof server.
-   - `uploadData(address, payload)` — create proofs and post them to proof server / on-chain as appropriate.
-   - `claimRewards(address)` — send a transaction to a compact-generated contract binding.
-
-If you'd like, I can scaffold the real Midnight JS wiring (package.json deps, sample contract bindings usage) next — tell me if you want a browser-based or Node-based wallet flow.
 
 ## Useful Links
 

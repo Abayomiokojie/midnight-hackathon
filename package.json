@@ -1,13 +1,28 @@
 {
-  "name": "midnight",
+  "name": "midnight-hackathon",
   "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "serve:dashboard": "http-server ./src/dashboard -c-1"
+  "private": true,
+  "dependencies": {
+    "@midnight-ntwrk/compact-runtime": "^0.8.1",
+    "@midnight-ntwrk/midnight-js-contracts": "^0.1.0",
+    "@midnight-ntwrk/wallet": "^5.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "crypto-js": "^4.2.0"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "typescript": "^5.2.2",
+    "vite": "^5.3.1",
+    "ts-node": "^10.9.2"
+  },
+  "scripts": {
+    "compile:contracts": "mkdir -p contracts/generated && compact compile contracts/consent-contract.compact --out-dir contracts/generated/consent-contract && compact compile contracts/hello-world.compact --out-dir contracts/generated/hello-world",
+    "dev": "vite --config src/vite.config.ts",
+    "build": "tsc && vite build --config src/vite.config.ts",
+    "preview": "vite preview --config src/vite.config.ts",
+    "test:backend": "ts-node src/backend/test-dapp.ts"
+  }
 }
