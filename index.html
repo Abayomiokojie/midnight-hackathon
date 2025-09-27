@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Decentralized Clinical Trial Platform</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #f0f4f8, #e0f0ff);
+    margin: 0;
+    padding: 20px;
+    color: #333;
+  }
+  header {
+    text-align: center;
+    padding: 25px;
+    background-color: #0d6efd;
+    color: #fff;
+    font-size: 2em;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+  }
+  .container { display: flex; flex-wrap: wrap; gap: 20px; }
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 25px;
+    flex: 1 1 300px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform 0.2s;
+  }
+  .card:hover { transform: translateY(-5px); box-shadow: 0 6px 16px rgba(0,0,0,0.15); }
+  h2, h3 { color: #0d6efd; margin-top: 0; margin-bottom: 15px; }
+  .section-title { font-weight: bold; margin-top: 10px; }
+  p, li { margin: 5px 0; }
+  .muted { color: #666; font-size: 0.9em; }
+  button {
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    margin-right: 10px;
+    margin-top: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95em;
+    transition: background-color 0.2s;
+  }
+  button:hover { background-color: #084298; }
+  ul { padding-left: 20px; }
+  .investor-money { font-size: 1.2em; color: #0d6efd; font-weight: bold; }
+  .ai-insight, .partnership-item { background: #e6f0ff; padding: 10px; border-radius: 6px; margin-bottom: 5px; }
+  .partnerships { margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<header>EquiTrials - Decentralized Clinical Trial Platform</header>
+
+<div class="container">
+  <!-- Patient Dashboard -->
+  <div class="card" id="patientDashboard">
+    <h2>Patient Dashboard</h2>
+    <p><span class="section-title">Name:</span> <span id="patientName"></span></p>
+    <p><span class="section-title">ID:</span> <span id="patientId"></span></p>
+    <p><span class="section-title">Status:</span> <span id="patientStatus"></span></p>
+    <p><span class="section-title">Trial Phase:</span> <span id="trialPhase"></span></p>
+    <p><span class="section-title">Tokens:</span> <span id="tokenBalance"></span></p>
+    <label><input type="checkbox" id="consentToggle"> Consent</label>
+    <p id="consentStatus"></p>
+
+    <h3>Health Insights (AI Placeholder)</h3>
+    <div id="aiInsights"></div>
+
+    <h3>Activities</h3>
+    <ul id="activityList"></ul>
+
+    <button id="submitParticipationBtn">Submit Participation</button>
+    <button id="redeemTokensBtn">Redeem Tokens</button>
+  </div>
+
+  <!-- Investor Dashboard -->
+  <div class="card" id="investorDashboard">
+    <h2>Investor Overview</h2>
+    <p><span class="section-title">Total Tokens Distributed:</span> <span id="totalTokens"></span></p>
+    <p><span class="section-title">Total Participations:</span> <span id="totalParticipation"></span></p>
+    <p><span class="section-title">Investor Funding:</span> $<span class="investorMoney" id="investorMoney"></span></p>
+  </div>
+</div>
+
+<!-- Partnerships Section -->
+<div class="card partnerships">
+  <h2>Our Partnerships</h2>
+  <div class="partnership-item">Global Health Lab - Secure data integration</div>
+  <div class="partnership-item">City Hospital - Clinical trial participants</div>
+  <div class="partnership-item">HealthTech Investors - Funding milestones</div>
+</div>
+
+<script>
+  // Patient & Investor state
+  const state = {
+    patient: { name: 'Adebayo Okorie', id: 'PAT-0001', status: 'Enrolled', trialPhase: 'Phase II' },
+    tokens: 120,
+    consent: false,
+    activity: [
+      { id: 1, text: 'Survey: Daily symptom diary — +10 tokens' },
+      { id: 2, text: 'Wearable upload verified — +5 tokens' },
+      { id: 3, text: 'Lab results uploaded — +15 tokens' }
+    ]
+  };
+
+  const investor = { totalTokens: state.tokens, totalParticipation: state.activity.length, money: 10000 };
+
+  // Generate dynamic AI insights based on activity and tokens
+  function generateHealthInsights() {
+    const insights = [];
+
+    if (state.tokens >= 100) {
+      insights.push({ title: 'Sleep Improvement', detail: 'Consistent participation shows improved sleep patterns over baseline. ✅' });
+    } else {
+      insights.push({ title: 'Sleep Insight Pending', detail: 'Participate more to generate personalized sleep insights. ℹ️' });
+    }
+
+    const activityCount = state.activity.length;
+    insights.push({ title: 'Activity Compliance', detail: `Patient completed ${activityCount} activities — adherence is strong.` });
+
+    insights.push({ title: 'Blood Pressure Status', detail: 'Systolic: 120, Diastolic: 78 — within healthy range.' });
+
+    return insights;
+  }
+
+  function render() {
+    // Patient info
+    document.getElementById('patientName').textContent = state.patient.name;
+    document.getElementById('patientId').textContent = state.patient.id;
+    document.getElementById('patientStatus').textContent = state.patient.status;
+    document.getElementById('trialPhase').textContent = state.patient.trialPhase;
+    document.getElementById('tokenBalance').textContent = state.tokens;
+    document.getElementById('consentToggle').checked = state.consent;
+    document.getElementById('consentStatus').textContent = state.consent ? 'Consent: Given' : 'Consent: Not given';
+
+    // Activities
+    const activityList = document.getElementById('activityList');
+    activityList.innerHTML = '';
+    state.activity.forEach(a => {
+      const li = document.createElement('li');
+      li.textContent = a.text;
+      activityList.appendChild(li);
+    });
+
+    // AI Insights
+    const aiContainer = document.getElementById('aiInsights');
+    aiContainer.innerHTML = '';
+    generateHealthInsights().forEach(i => {
+      const div = document.createElement('div');
+      div.className = 'ai-insight';
+      div.innerHTML = `<strong>${i.title}:</strong> ${i.detail}`;
+      aiContainer.appendChild(div);
+    });
+
+    // Investor info
+    document.getElementById('totalTokens').textContent = investor.totalTokens;
+    document.getElementById('totalParticipation').textContent = investor.totalParticipation;
+    document.getElementById('investorMoney').textContent = investor.money;
+  }
+
+  // Event listeners
+  document.getElementById('consentToggle').addEventListener('change', ev => { state.consent = ev.target.checked; render(); });
+
+  document.getElementById('submitParticipationBtn').addEventListener('click', () => {
+    state.tokens += 10;
+    state.activity.unshift({ id: Date.now(), text: 'Claimed participation — +10 tokens' });
+    investor.totalTokens += 10;
+    investor.totalParticipation += 1;
+    render();
+  });
+
+  document.getElementById('redeemTokensBtn').addEventListener('click', () => {
+    if (state.tokens >= 10) {
+      state.tokens -= 10;
+      state.activity.unshift({ id: Date.now(), text: 'Redeemed 10 tokens' });
+      render();
+    } else {
+      alert('Not enough tokens to redeem.');
+    }
+  });
+
+  render();
+</script>
+</body>
+</html>
