@@ -19,7 +19,7 @@
     "ts-node": "^10.9.2"
   },
   "scripts": {
-    "compile:contracts": "mkdir -p contracts/generated && compact compile contracts/consent-contract.compact --out-dir contracts/generated/consent-contract && compact compile contracts/hello-world.compact --out-dir contracts/generated/hello-world",
+    "compile:contracts": "mkdir -p contracts/generated && cd contracts && compact compile consent-contract.compact ../contracts/generated/consent-contract && compact compile hello-world.compact ../contracts/generated/hello-world",
     "dev": "vite --config src/vite.config.ts",
     "build": "tsc && vite build --config src/vite.config.ts",
     "preview": "vite preview --config src/vite.config.ts",
