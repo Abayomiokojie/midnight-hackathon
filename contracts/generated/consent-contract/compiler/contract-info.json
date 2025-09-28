@@ -1,0 +1,75 @@
+{
+  "circuits": [
+    {
+      "name": "giveConsent",
+      "pure": false,
+      "arguments": [
+        {
+          "name": "patientID",
+          "type": {
+            "type-name": "Bytes",
+            "length": 20
+          }
+        }
+      ],
+      "result-type": {
+        "type-name": "Tuple",
+        "types": [
+        ]
+      }
+    },
+    {
+      "name": "revokeConsent",
+      "pure": false,
+      "arguments": [
+        {
+          "name": "patientID",
+          "type": {
+            "type-name": "Bytes",
+            "length": 20
+          }
+        }
+      ],
+      "result-type": {
+        "type-name": "Tuple",
+        "types": [
+        ]
+      }
+    },
+    {
+      "name": "checkConsent",
+      "pure": false,
+      "arguments": [
+        {
+          "name": "patientID",
+          "type": {
+            "type-name": "Bytes",
+            "length": 20
+          }
+        }
+      ],
+      "result-type": {
+        "type-name": "Enum",
+        "name": "ConsentStatus",
+        "elements": [
+          "NONE",
+          "GIVEN",
+          "REVOKED"
+        ]
+      }
+    }
+  ],
+  "witnesses": [
+    {
+      "name": "patientSecretKey",
+      "arguments": [
+      ],
+      "result type": {
+        "type-name": "Bytes",
+        "length": 32
+      }
+    }
+  ],
+  "contracts": [
+  ]
+}
